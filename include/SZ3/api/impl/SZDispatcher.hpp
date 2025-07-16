@@ -40,7 +40,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
         } catch (std::length_error &e) {
             if (std::string(e.what()) == SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH) {
                 isCmpCapSufficient = false;
-                printf("SZ is downgraded to lossless mode.\n");
+                printf("SZ is downgraded to lossless mode right??.\n");
             } else {
                 throw;
             }
@@ -66,6 +66,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
             memcpy(cmpData, zstdCmpData, zstdCmpSize);
             cmpSize = zstdCmpSize;
         }
+        std::cout << "Free being called from here?: " << static_cast<void*>(zstdCmpData) << std::endl;
         free(zstdCmpData);
     }
     return cmpSize;
