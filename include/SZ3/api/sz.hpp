@@ -52,9 +52,9 @@ char *compressedData = SZ_compress(conf, data, outSize);
  */
 template <class T>
 size_t SZ_compress(const SZ3::Config &config, const T *data, char *cmpData, size_t cmpCap) {
-    std::cout<<"It has hit here with cmpCap"<<cmpCap<<"and"<<SZ_compress_size_bound<T>(conf)<<std::endl;
     using namespace SZ3;
     Config conf(config);
+    std::cout<<"It has hit here with cmpCap"<<cmpCap<<"and"<<SZ_compress_size_bound<T>(conf)<<std::endl;
     
     if (cmpCap < SZ_compress_size_bound<T>(conf)) {
         fprintf(stderr, "%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
