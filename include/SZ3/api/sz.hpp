@@ -52,6 +52,7 @@ char *compressedData = SZ_compress(conf, data, outSize);
  */
 template <class T>
 size_t SZ_compress(const SZ3::Config &config, const T *data, char *cmpData, size_t cmpCap) {
+    std::cout<<"It has hit here with cmpCap"<<cmpCap<<"and"<<SZ_compress_size_bound<T>(conf)<<std::endl;
     using namespace SZ3;
     Config conf(config);
     
@@ -99,6 +100,7 @@ char *SZ_compress(const SZ3::Config &config, const T *data, size_t &cmpSize) {
 
     size_t bufferLen = SZ_compress_size_bound<T>(config);
     auto buffer = new char[bufferLen];
+    std::cout<<"Has hit right thing"<<std::endl;
     cmpSize = SZ_compress(config, data, buffer, bufferLen);
 
     return buffer;
