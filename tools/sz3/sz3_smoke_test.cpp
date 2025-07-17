@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
     conf.absErrorBound = 1E-3;          // absolute error bound 1e-3
 
     std::vector<unsigned long> input_data(conf.num);
-      for (size_t i = 0; i < conf.num; i++) {
+      for (size_t i = 0; i < conf.num+4; i++) {
         input_data[i] = static_cast<unsigned long>(i * 1000UL);
     }
     size_t cmpSize;
