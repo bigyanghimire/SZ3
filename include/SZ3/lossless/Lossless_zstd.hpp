@@ -24,25 +24,20 @@ class Lossless_zstd : public concepts::LosslessInterface {
     * Therefore, we need to check if the dst buffer (dstCap) is large enough for zstd
     */
     size_t compress(const uchar *src, size_t srcLen, uchar *dst, size_t dstCap) override {
-        write(srcLen, dst);
-  // Debug prints to confirm buffer sizes
-    size_t header_size = sizeof(size_t);
-    size_t available_for_zstd = dstCap - header_size;
-    size_t zstd_bound = ZSTD_compressBound(srcLen);
+     write(srcLen, dst);
     
-    printf("=== LOSSLESS ZSTD DEBUG ===\n");
-    printf("Total buffer (dstCap): %zu bytes\n", dstCap);
-    printf("Header size: %zu bytes\n", header_size);
-    printf("Available for ZSTD: %zu bytes\n", available_for_zstd);
-    printf("ZSTD_compressBound: %zu bytes\n", zstd_bound);
-    printf("Buffer addresses: dst=%p, dst+header=%p\n", (void*)dst, (void*)(dst + header_size));
+    // Check buffer size accounting for the srcLen prefix
+    if (dstCap < ZSTD_compressBound(srcLen) + sizeof(size_t)) {
+        fprintf(stderr, "%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
+        throw std::length_error(SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
+    }
     
-        if (dstCap < ZSTD_compressBound(srcLen)) {
-            fprintf(stderr, "from losslesss zstds%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
-            throw std::length_error(SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
-        }
-        // size_t dstLen = ZSTD_compress(dst, dstCap, src, srcLen, compression_level);
-        return 20;
+    // Compress AFTER the srcLen header
+    size_t dstLen = ZSTD_compress(dst + sizeof(size_t), 
+                                  dstCap - sizeof(size_t), 
+                                  src, srcLen, compression_level);
+    
+    return dstLen + sizeof(size_t);
     }
 
     size_t decompress(const uchar *src, const size_t srcLen, uchar *&dst, size_t &dstLen) override {
