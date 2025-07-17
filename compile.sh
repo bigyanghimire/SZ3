@@ -5,7 +5,7 @@ rm -fr qsz/
 mkdir qsz
 mkdir build && cd build
 
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/home/bigyang/amg-compress/SZ3/qsz ..
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX:PATH=/home/bigyang/amg-compress/SZ3/qsz ..
 
 # Use all available CPU cores for faster build
 make -j$(nproc)
