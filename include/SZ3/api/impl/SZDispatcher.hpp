@@ -61,7 +61,9 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
         auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
         size_t zstdCmpSize =
             zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
-        if (zstdCmpSize < cmpSize && zstdCmpSize <= cmpCap) {
+       printf("[ZSTD] Compressed size: %zu bytes (input: %zu bytes, cap: %zu bytes)\n",
+       zstdCmpSize, conf.num * sizeof(T), zstdCmpCap);
+            if (zstdCmpSize < cmpSize && zstdCmpSize <= cmpCap) {
             conf.cmprAlgo = ALGO_LOSSLESS;
             memcpy(cmpData, zstdCmpData, zstdCmpSize);
             cmpSize = zstdCmpSize;
