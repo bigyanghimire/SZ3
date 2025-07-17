@@ -25,6 +25,18 @@ class Lossless_zstd : public concepts::LosslessInterface {
     */
     size_t compress(const uchar *src, size_t srcLen, uchar *dst, size_t dstCap) override {
         write(srcLen, dst);
+  // Debug prints to confirm buffer sizes
+    size_t header_size = sizeof(size_t);
+    size_t available_for_zstd = dstCap - header_size;
+    size_t zstd_bound = ZSTD_compressBound(srcLen);
+    
+    printf("=== LOSSLESS ZSTD DEBUG ===\n");
+    printf("Total buffer (dstCap): %zu bytes\n", dstCap);
+    printf("Header size: %zu bytes\n", header_size);
+    printf("Available for ZSTD: %zu bytes\n", available_for_zstd);
+    printf("ZSTD_compressBound: %zu bytes\n", zstd_bound);
+    printf("Buffer addresses: dst=%p, dst+header=%p\n", (void*)dst, (void*)(dst + header_size));
+    
         if (dstCap < ZSTD_compressBound(srcLen)) {
             fprintf(stderr, "from losslesss zstds%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
             throw std::length_error(SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
