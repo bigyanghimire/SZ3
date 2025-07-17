@@ -53,6 +53,7 @@
 // }
 
 int main(int argc, char **argv) {
+    size_t size=80;
     SZ3::Config conf({80});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
@@ -63,7 +64,10 @@ int main(int argc, char **argv) {
         input_data[i] = static_cast<unsigned long>(i * 1000UL);
     }
     size_t cmpSize;
-    char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
+    // char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
+
+    char *cmpData = compress_data<unsigned long>(input_data, size, cmpSize);
+
     // auto dec_data_p = dec_data.data();
     // SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
     std::cout << "Compressed" <<cmpSize<< std::endl;
@@ -71,3 +75,14 @@ int main(int argc, char **argv) {
     delete[] cmpData;
     return 0;
 }
+
+    template <typename T>
+    char *compress_data(T *uncompressedData, size_t size, size_t &cmpSize)
+    {
+        SZ3::Config conf({size});
+        conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
+        conf.errorBoundMode = SZ3::EB_ABS;
+        conf.absErrorBound = 1e-3;
+        char *cmpData = SZ_compress(conf, uncompressedData, cmpSize);
+        return cmpData;
+    }
