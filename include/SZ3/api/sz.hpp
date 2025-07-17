@@ -57,7 +57,7 @@ size_t SZ_compress(const SZ3::Config &config, const T *data, char *cmpData, size
     std::cout<<"It has hit here with cmpCap"<<cmpCap<<"and"<<SZ_compress_size_bound<T>(conf)<<std::endl;
     
     if (cmpCap < SZ_compress_size_bound<T>(conf)) {
-        fprintf(stderr, "%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
+        fprintf(stderr, "from hereeee%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
         throw std::invalid_argument(SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
     }
     
