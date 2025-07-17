@@ -51,7 +51,16 @@
 //     delete[] cmpData;
 //     return 0;
 // }
-
+    template <typename T>
+    char *compress_data(T *uncompressedData, size_t size, size_t &cmpSize)
+    {
+        SZ3::Config conf({size});
+        conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
+        conf.errorBoundMode = SZ3::EB_ABS;
+        conf.absErrorBound = 1e-3;
+        char *cmpData = SZ_compress(conf, uncompressedData, cmpSize);
+        return cmpData;
+    }
 int main(int argc, char **argv) {
     size_t size=80;
     SZ3::Config conf({80});
@@ -76,13 +85,4 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-    template <typename T>
-    char *compress_data(T *uncompressedData, size_t size, size_t &cmpSize)
-    {
-        SZ3::Config conf({size});
-        conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
-        conf.errorBoundMode = SZ3::EB_ABS;
-        conf.absErrorBound = 1e-3;
-        char *cmpData = SZ_compress(conf, uncompressedData, cmpSize);
-        return cmpData;
-    }
+
