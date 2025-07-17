@@ -51,6 +51,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
     if (conf.cmprAlgo == ALGO_LOSSLESS || !isCmpCapSufficient) {
         conf.cmprAlgo = ALGO_LOSSLESS;
         auto zstd = Lossless_zstd();
+        std::cout<<"ZSTD compression"<<std::endl;
         return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), cmpData, cmpCap);
     }
     
@@ -61,8 +62,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
         auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
         size_t zstdCmpSize =
             zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
-       printf("[ZSTD] Compressed size: %zu bytes (input: %zu bytes, cap: %zu bytes)\n",
-       zstdCmpSize, conf.num * sizeof(T), zstdCmpCap);
+            std::cout<<"ZSTD compression second"<<std::endl;
             if (zstdCmpSize < cmpSize && zstdCmpSize <= cmpCap) {
             conf.cmprAlgo = ALGO_LOSSLESS;
             memcpy(cmpData, zstdCmpData, zstdCmpSize);
