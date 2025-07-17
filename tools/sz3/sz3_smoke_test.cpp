@@ -68,7 +68,7 @@ int main(int argc, char **argv) {
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
     conf.absErrorBound = 1E-3;          // absolute error bound 1e-3
 
-    std::vector<unsigned long> input_data(conf.num);
+    std::vector<unsigned long> input_data(conf.num+4);
       for (size_t i = 0; i < conf.num+4; i++) {
         input_data[i] = static_cast<unsigned long>(i * 1000UL);
     }
