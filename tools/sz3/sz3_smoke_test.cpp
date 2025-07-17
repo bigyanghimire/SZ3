@@ -62,8 +62,8 @@
         return cmpData;
     }
 int main(int argc, char **argv) {
-    size_t size=80;
-    SZ3::Config conf({80});
+    size_t size=10;
+    SZ3::Config conf({10});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
     conf.absErrorBound = 1E-3;          // absolute error bound 1e-3
