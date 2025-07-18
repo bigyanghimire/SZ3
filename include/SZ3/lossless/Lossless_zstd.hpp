@@ -30,8 +30,8 @@ class Lossless_zstd : public concepts::LosslessInterface {
             fprintf(stderr, "%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
             throw std::length_error("lossless error");
         }
-        // size_t dstLen = ZSTD_compress(dst, dstCap, src, srcLen, compression_level);
-        return 20 + sizeof(size_t);
+        size_t dstLen = ZSTD_compress(dst, dstCap, src, srcLen, compression_level);
+        return dstLen + sizeof(size_t);
     }
 
 
