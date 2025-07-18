@@ -62,20 +62,20 @@
         return cmpData;
     }
 int main(int argc, char **argv) {
-    size_t size=10;
-    SZ3::Config conf({10});
-    conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
+    size_t size=80;
+    SZ3::Config conf({size});
+    conf.cmprAlgo = SZ3::ALGO_LORENZO_REG;
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
     conf.absErrorBound = 1E-3;          // absolute error bound 1e-3
 
-    std::vector<unsigned long> input_data(conf.num+4);
-      for (size_t i = 0; i < conf.num+4; i++) {
-        input_data[i] = static_cast<unsigned long>(i * 1000UL);
+    std::vector<double> input_data(conf.num);
+      for (size_t i = 0; i < conf.num; i++) {
+        input_data[i] = static_cast<double>(i * 1000UL);
     }
     size_t cmpSize;
     // char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
 
-    char *cmpData = compress_data<unsigned long>(input_data.data(), size, cmpSize);
+    char *cmpData = compress_data<double>(input_data.data(), size, cmpSize);
 
     // auto dec_data_p = dec_data.data();
     // SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
