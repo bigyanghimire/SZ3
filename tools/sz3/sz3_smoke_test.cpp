@@ -68,10 +68,19 @@ int main(int argc, char **argv) {
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
     conf.absErrorBound = 1E-3;          // absolute error bound 1e-3
 
-    std::vector<double> input_data(conf.num);
-      for (size_t i = 0; i < conf.num; i++) {
-        input_data[i] = static_cast<double>(i * 1000UL);
-    }
+       std::vector<double> input_data = {
+        0.322303, 0.118728, 0.172796, 0.124927, 0.16159, 0.135291, 0.0325391,
+        0.15763, 0.0817775, 0.0693074, 0.0442343, 0.0211984, 0.0298839,
+        0.047828, 0.0554918, 0.105536, 0.0632089, 0.0358594, 0.0338688,
+        0.0443082, 0.227095, 0.146193, 0.136544, 0.0837664, 0.0358977,
+        0.0829236, -0.0136721, 0.0146789, 0.0471617, 0.0634289, 0.0464465,
+        0.0406016, 0.0616216, 0.117805, 0.0631437, 0.15275, 0.0628439,
+        0.160152, 0.135846, 0.0539329, 0.0701087
+    };
+    //   for (size_t i = 0; i < conf.num; i++) {
+    //     input_data[i] = static_cast<double>(i * 1000UL);
+    // }
+      std::cout << "Vector size: " << input_data.size() << std::endl;
     size_t cmpSize;
     // char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
 
