@@ -31,7 +31,7 @@ class Lossless_zstd : public concepts::LosslessInterface {
             throw std::length_error("lossless error");
         }
         // size_t dstLen = ZSTD_compress(dst, dstCap, src, srcLen, compression_level);
-        return dstLen + sizeof(size_t);
+        return 20 + sizeof(size_t);
     }
 
 
