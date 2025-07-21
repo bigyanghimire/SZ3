@@ -103,7 +103,7 @@ int main(int argc, char **argv) {
     char *cmpData = compress_data<double>(input_data.data(), size, cmpSize);
     std::vector<double> dec_data(size);
     auto dec_data_p = dec_data.data();
-    SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
+    //SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
     std::cout << "Compressed" << cmpSize << std::endl;
     // //    printf("%lu ", conf.num);
     // ////////////////
@@ -117,7 +117,10 @@ int main(int argc, char **argv) {
     // std::vector<T> dec_data(datasize);
     // auto dec_data_p = dec_data.data();
     // decompress_data(&buf[start * block_size], datasize, cmpSize, cmpData, dec_data_p);
-
+    // std::vector<double> dec_data(size);
+    // auto dec_data_p = dec_data.data();
+    // decompress_data(&buf[start * block_size], size, cmpSize, cmpData, dec_data_p);
+    // delete[] cmpData;
     ///////////////
     delete[] cmpData;
     return 0;
