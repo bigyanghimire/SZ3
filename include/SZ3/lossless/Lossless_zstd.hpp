@@ -24,12 +24,28 @@ class Lossless_zstd : public concepts::LosslessInterface {
     * Therefore, we need to check if the dst buffer (dstCap) is large enough for zstd
     */
     size_t compress(const uchar *src, size_t srcLen, uchar *dst, size_t dstCap) override {
-        write(srcLen, dst);
-        if (dstCap < ZSTD_compressBound(srcLen)) {
+        std::cout << "dstcap is before: " << dstCap << " and src len is: " << ZSTD_compressBound(srcLen) << std::endl;
+
+        // Check if we have enough space for both the size header and compressed data
+        if (dstCap < sizeof(size_t) + ZSTD_compressBound(srcLen)) {
             fprintf(stderr, "%s\n", SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
             throw std::length_error(SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH);
         }
-        size_t dstLen = ZSTD_compress(dst, dstCap, src, srcLen, compression_level);
+        // Keep track of the current position in the buffer
+        uchar *current_pos = dst;
+
+        // Write the source length to the beginning of the buffer
+        // This advances current_pos by sizeof(size_t)
+        write(srcLen, current_pos);
+
+        std::cout << "dstcap is after: " << dstCap << " and src len is: " << ZSTD_compressBound(srcLen) << std::endl;
+
+        // Calculate remaining capacity after the header
+        size_t remainingCap = dstCap - (current_pos - dst);
+
+        // Compress to the current position (after the header)
+        size_t dstLen = ZSTD_compress(current_pos, remainingCap, src, srcLen, compression_level);
+
         return dstLen + sizeof(size_t);
     }
 
