@@ -121,6 +121,12 @@ int main(int argc, char **argv) {
     // auto dec_data_p = dec_data.data();
     // decompress_data(&buf[start * block_size], size, cmpSize, cmpData, dec_data_p);
     // delete[] cmpData;
+      for (size_t i = 0; i < conf.num; i++) {
+        std::cout<<"dec"<<dec_data[i]<<std:endl;
+        // if (fabs(dec_data[i] - input_data_copy[i]) > max_err) {
+        //     max_err = fabs(dec_data[i] - input_data_copy[i]);
+        // }
+    }
     ///////////////
     delete[] cmpData;
     return 0;
