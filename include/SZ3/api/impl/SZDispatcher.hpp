@@ -65,7 +65,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
         auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T));
         auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
         std::cout<<"zstdCmpCap>>>"<<zstdCmpCap<<std::endl;
-        std::cout<<"src data size"<<conf.num * sizeof(T)<<std::endl;
+        std::cout<<"src data size"<<ZSTD_compressBound(conf.num * sizeof(T))<<std::endl;
         size_t zstdCmpSize =
             zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
             std::cout<<"ZSTD compression second"<<std::endl;
