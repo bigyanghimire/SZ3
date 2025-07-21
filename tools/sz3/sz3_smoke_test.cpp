@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
 
     // std::vector<T> dec_data(datasize);
     // auto dec_data_p = dec_data.data();
-    // decompress_data(&buf[start * block_size], datasize, cmpSize, cmpData, dec_data_p);
+    decompress_data(input_data.data(), size, cmpSize, cmpData, dec_data_p);
     // std::vector<double> dec_data(size);
     // auto dec_data_p = dec_data.data();
     // decompress_data(&buf[start * block_size], size, cmpSize, cmpData, dec_data_p);
