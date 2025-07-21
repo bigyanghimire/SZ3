@@ -1,1 +1,1 @@
-./qsz/bin/sz3_smoke_test 
+valgrind ./qsz/bin/sz3_smoke_test 
