@@ -60,21 +60,21 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
     // }
     
     // if lossy compression ratio < 3, test if lossless only mode has a better ratio than lossy
-    if (conf.num * sizeof(T) / 1.0 / cmpSize < 3) {
-        auto zstd = Lossless_zstd();
-        auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T));
-        auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
-        size_t zstdCmpSize =
-            zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
-            std::cout<<"ZSTD compression second"<<std::endl;
-            if (zstdCmpSize < cmpSize && zstdCmpSize <= cmpCap) {
-            conf.cmprAlgo = ALGO_LOSSLESS;
-            memcpy(cmpData, zstdCmpData, zstdCmpSize);
-            cmpSize = zstdCmpSize;
-        }
-        std::cout << "Free being called from here?: " << static_cast<void*>(zstdCmpData) << std::endl;
-        free(zstdCmpData);
-    }
+    // if (conf.num * sizeof(T) / 1.0 / cmpSize < 3) {
+    //     auto zstd = Lossless_zstd();
+    //     auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T));
+    //     auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
+    //     size_t zstdCmpSize =
+    //         zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
+    //         std::cout<<"ZSTD compression second"<<std::endl;
+    //         if (zstdCmpSize < cmpSize && zstdCmpSize <= cmpCap) {
+    //         conf.cmprAlgo = ALGO_LOSSLESS;
+    //         memcpy(cmpData, zstdCmpData, zstdCmpSize);
+    //         cmpSize = zstdCmpSize;
+    //     }
+    //     std::cout << "Free being called from here?: " << static_cast<void*>(zstdCmpData) << std::endl;
+    //     free(zstdCmpData);
+    // }
     return cmpSize;
 }
 
