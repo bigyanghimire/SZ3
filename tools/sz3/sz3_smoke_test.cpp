@@ -94,6 +94,9 @@ int main(int argc, char **argv) {
     // SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
     std::cout << "Compressed" <<cmpSize<< std::endl;
     //    printf("%lu ", conf.num);
+    ////////////////
+        auto zstd = Lossless_zstd();
+    ///////////////
     delete[] cmpData;
     return 0;
 }
