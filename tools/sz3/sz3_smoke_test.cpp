@@ -96,8 +96,8 @@ int main(int argc, char **argv) {
     auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
     size_t zstdCmpSize =
         zstd.compress(reinterpret_cast<const uchar *>(input_data.data()), conf.num * sizeof(double), zstdCmpData, zstdCmpCap);
-
+std::cout << "loss Compressed" << zstdCmpSize << std::endl;
     ///////////////
-    delete[] cmpData;
+   // delete[] cmpData;
     return 0;
 }
