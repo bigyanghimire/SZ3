@@ -39,7 +39,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
             }
 
         } catch (std::length_error &e) {
-            if (std::string(e.what()) == "lossless error") {
+            if (std::string(e.what()) == SZ_ERROR_COMP_BUFFER_NOT_LARGE_ENOUGH) {
                 isCmpCapSufficient = false;
                 printf("SZ is downgraded to lossless mode and error is same lossless.\n");
             } else {
@@ -52,8 +52,11 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
     if (conf.cmprAlgo == ALGO_LOSSLESS || !isCmpCapSufficient) {
         conf.cmprAlgo = ALGO_LOSSLESS;
         auto zstd = Lossless_zstd();
+        auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T));
+        auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
         std::cout<<"ZSTD compression"<<std::endl;
-        return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), cmpData, cmpCap);
+        // return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), cmpData, cmpCap);
+        return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
     }
     
     // if lossy compression ratio < 3, test if lossless only mode has a better ratio than lossy
