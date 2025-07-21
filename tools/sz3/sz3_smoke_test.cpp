@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
     // }
     std::cout << "Vector size: " << input_data.size() << std::endl;
     size_t cmpSize;
-    char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
+    // char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
 
     char *cmpData = compress_data<double>(input_data.data(), size, cmpSize);
 
