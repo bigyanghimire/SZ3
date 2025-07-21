@@ -62,7 +62,7 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
     //if lossy compression ratio < 3, test if lossless only mode has a better ratio than lossy
     if (conf.num * sizeof(T) / 1.0 / cmpSize < 3) {
         auto zstd = Lossless_zstd();
-        auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T))+sizeof(size_t);
+        auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T));
         auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
         std::cout<<"zstdCmpCap>>>"<<zstdCmpCap<<std::endl;
         std::cout<<"src data size"<<ZSTD_compressBound(conf.num * sizeof(T))<<std::endl;
