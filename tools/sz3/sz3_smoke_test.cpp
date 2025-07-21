@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
     //    printf("%lu ", conf.num);
     ////////////////
     auto zstd = SZ3::Lossless_zstd();
-    auto zstdCmpCap = SZ3::ZSTD_compressBound(conf.num * sizeof(double));
+    auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(double));
     auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
     size_t zstdCmpSize =
         zstd.compress(reinterpret_cast<const uchar *>(input_data.data()), conf.num * sizeof(double), zstdCmpData, zstdCmpCap);
