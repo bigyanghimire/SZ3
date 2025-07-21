@@ -62,7 +62,7 @@ char *compress_data(T *uncompressedData, size_t size, size_t &cmpSize) {
     return cmpData;
 }
 int main(int argc, char **argv) {
-    size_t size = 41;
+    size_t size = 51;
     SZ3::Config conf({size});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
@@ -74,8 +74,8 @@ int main(int argc, char **argv) {
         9.51545e-05, 0.000136021, 6.12364e-05, 0.00123887, -1.95963e-05, -1.86062e-05, -2.23122e-05, -0.00133366,
         -2.67941e-05, -6.13811e-05, 0.0020968, -0.00257579, 0.000133028, 0.000125964, 7.11653e-05, 3.86562e-05,
         0.00271601, -2.6028e-05, 0.000115805, -3.44433e-05, -6.6229e-05, -3.97414e-05, -6.85452e-05, -5.14098e-05,
-        // -3.44433e-05, -6.6229e-05, -3.97414e-05, -6.85452e-05, -5.14098e-05,
-        // -3.44433e-05, -6.6229e-05, -3.97414e-05, -6.85452e-05, -5.14098e-05,
+        -3.44433e-05, -6.6229e-05, -3.97414e-05, -6.85452e-05, -5.14098e-05,
+        -3.44433e-05, -6.6229e-05, -3.97414e-05, -6.85452e-05, -5.14098e-05,
         0.00628354};
     //   for (size_t i = 0; i < conf.num; i++) {
     //     input_data[i] = static_cast<double>(i * 1000UL);
