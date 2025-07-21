@@ -55,8 +55,8 @@ size_t SZ_compress_dispatcher(Config &conf, const T *data, uchar *cmpData, size_
         auto zstdCmpCap = ZSTD_compressBound(conf.num * sizeof(T));
         auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
         std::cout<<"ZSTD compression"<<std::endl;
-        // return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), cmpData, cmpCap);
-        return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
+         return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), cmpData, cmpCap);
+        //return zstd.compress(reinterpret_cast<const uchar *>(data), conf.num * sizeof(T), zstdCmpData, zstdCmpCap);
     }
     
     // if lossy compression ratio < 3, test if lossless only mode has a better ratio than lossy
