@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
     auto zstdCmpCap = SZ3::ZSTD_compressBound(conf.num * sizeof(double));
     auto zstdCmpData = static_cast<uchar *>(malloc(zstdCmpCap));
     size_t zstdCmpSize =
-        zstd.compress(reinterpret_cast<const uchar *>(input_data), conf.num * sizeof(double), zstdCmpData, zstdCmpCap);
+        zstd.compress(reinterpret_cast<const uchar *>(input_data.data()), conf.num * sizeof(double), zstdCmpData, zstdCmpCap);
 
     ///////////////
     delete[] cmpData;
