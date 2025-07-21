@@ -84,11 +84,11 @@ int main(int argc, char **argv) {
     size_t cmpSize;
     // char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
 
-    char *cmpData = compress_data<double>(input_data.data(), size, cmpSize);
+  //  char *cmpData = compress_data<double>(input_data.data(), size, cmpSize);
 
     // auto dec_data_p = dec_data.data();
     // SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
-    std::cout << "Compressed" << cmpSize << std::endl;
+    //std::cout << "Compressed" << cmpSize << std::endl;
     //    printf("%lu ", conf.num);
     ////////////////
     auto zstd = SZ3::Lossless_zstd();
