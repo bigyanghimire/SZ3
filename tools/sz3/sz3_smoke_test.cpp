@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
     std::cout << "Compressed" <<cmpSize<< std::endl;
     //    printf("%lu ", conf.num);
     ////////////////
-        auto zstd = Lossless_zstd();
+        auto zstd = SZ3::Lossless_zstd();
     ///////////////
     delete[] cmpData;
     return 0;
