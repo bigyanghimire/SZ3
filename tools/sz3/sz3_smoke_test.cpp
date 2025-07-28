@@ -131,6 +131,7 @@ std::vector<double> input_data_copy(input_data);
 
     double max_err = 0.0;
     for (size_t i = 0; i < conf.num; i++) {
+        std::cout<<"dec_data[i]"<<dec_data[i]<<std::endl;
         if (fabs(dec_data[i] - input_data_copy[i]) > max_err) {
             max_err = fabs(dec_data[i] - input_data_copy[i]);
         }
