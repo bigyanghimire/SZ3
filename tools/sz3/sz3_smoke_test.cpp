@@ -57,7 +57,7 @@ char *compress_data(T *uncompressedData, size_t size, size_t &cmpSize) {
     SZ3::Config conf({size});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;
-    conf.absErrorBound = 1e-9;
+    conf.absErrorBound = 1e-3;
     char *cmpData = SZ_compress(conf, uncompressedData, cmpSize);
     return cmpData;
 }
@@ -67,7 +67,7 @@ void decompress_data(T *uncompressedData, size_t size, size_t cmpSize, char *cmp
     SZ3::Config conf({size});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;
-    conf.absErrorBound = 1e-9;
+    conf.absErrorBound = 1e-3;
     SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
     // return cmpData;
 }
