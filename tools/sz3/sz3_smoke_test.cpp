@@ -74,6 +74,7 @@ void decompress_data(T *uncompressedData, size_t size, size_t cmpSize, char *cmp
 
 int main(int argc, char **argv) {
     size_t size = 41;
+    double err=1e-9;
     // SZ3::Config conf({size});
     // conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     // conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
@@ -137,7 +138,7 @@ std::vector<double> input_data_copy(input_data);
         }
     }
     std::cout<<"max error is"<<max_err<<std::endl;
-    printf("Smoke test %s", max_err <= conf.absErrorBound ? "passed" : "failed");
+    printf("Smoke test %s", max_err <= err ? "passed" : "failed");
     ///////////////
     delete[] cmpData;
     return 0;
