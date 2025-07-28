@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
     SZ3::Config conf({size});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
-    conf.absErrorBound = 1E-3;          // absolute error bound 1e-3
+    conf.absErrorBound = 1E-9;          // absolute error bound 1e-3
     //std::vector<double> input_data(size);
     std::vector<double> input_data = {
         -0.000557246, -1.91871e-05, 3.64865e-05,  -0.000174678, -4.16519e-05, 
