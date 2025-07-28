@@ -136,6 +136,7 @@ std::vector<double> input_data_copy(input_data);
             max_err = fabs(dec_data[i] - input_data_copy[i]);
         }
     }
+    std::cout<<"max error is"<<max_err<<std::endl;
     printf("Smoke test %s", max_err <= conf.absErrorBound ? "passed" : "failed");
     ///////////////
     delete[] cmpData;
