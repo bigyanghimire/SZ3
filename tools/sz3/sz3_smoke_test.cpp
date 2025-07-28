@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
     std::cout << "Vector size: " << input_data.size() << std::endl;
     size_t cmpSize;
     // char *cmpData = SZ_compress(conf, input_data.data(), cmpSize);
-
+std::vector<float> input_data_copy(input_data);
     char *cmpData = compress_data<double>(input_data.data(), size, cmpSize);
     std::vector<double> dec_data(size);
     auto dec_data_p = dec_data.data();
@@ -121,12 +121,21 @@ int main(int argc, char **argv) {
     // auto dec_data_p = dec_data.data();
     // decompress_data(&buf[start * block_size], size, cmpSize, cmpData, dec_data_p);
     // delete[] cmpData;
-      for (size_t i = 0; i < conf.num; i++) {
-        std::cout<<"dec"<<dec_data[i]<<std::endl;
-        // if (fabs(dec_data[i] - input_data_copy[i]) > max_err) {
-        //     max_err = fabs(dec_data[i] - input_data_copy[i]);
-        // }
+    //   for (size_t i = 0; i < conf.num; i++) {
+    //     std::cout<<"dec"<<dec_data[i]<<std::endl;
+    //     // if (fabs(dec_data[i] - input_data_copy[i]) > max_err) {
+    //     //     max_err = fabs(dec_data[i] - input_data_copy[i]);
+    //     // }
+    // }
+
+
+    double max_err = 0.0;
+    for (size_t i = 0; i < conf.num; i++) {
+        if (fabs(dec_data[i] - input_data_copy[i]) > max_err) {
+            max_err = fabs(dec_data[i] - input_data_copy[i]);
+        }
     }
+    printf("Smoke test %s", max_err <= conf.absErrorBound ? "passed" : "failed");
     ///////////////
     delete[] cmpData;
     return 0;
