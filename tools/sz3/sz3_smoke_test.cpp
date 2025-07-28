@@ -57,7 +57,7 @@ char *compress_data(T *uncompressedData, size_t size, size_t &cmpSize) {
     SZ3::Config conf({size});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;
-    conf.absErrorBound = 1e-3;
+    conf.absErrorBound = 1e-9;
     char *cmpData = SZ_compress(conf, uncompressedData, cmpSize);
     return cmpData;
 }
@@ -67,17 +67,17 @@ void decompress_data(T *uncompressedData, size_t size, size_t cmpSize, char *cmp
     SZ3::Config conf({size});
     conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
     conf.errorBoundMode = SZ3::EB_ABS;
-    conf.absErrorBound = 1e-3;
+    conf.absErrorBound = 1e-9;
     SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
     // return cmpData;
 }
 
 int main(int argc, char **argv) {
     size_t size = 41;
-    SZ3::Config conf({size});
-    conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
-    conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
-    conf.absErrorBound = 1E-9;          // absolute error bound 1e-3
+    // SZ3::Config conf({size});
+    // conf.cmprAlgo = SZ3::ALGO_INTERP_LORENZO;
+    // conf.errorBoundMode = SZ3::EB_ABS;  // refer to def.hpp for all supported error bound mode
+    // conf.absErrorBound = 1E-9;          // absolute error bound 1e-3
     //std::vector<double> input_data(size);
     std::vector<double> input_data = {
         -0.000557246, -1.91871e-05, 3.64865e-05,  -0.000174678, -4.16519e-05, 
@@ -113,10 +113,10 @@ std::vector<double> input_data_copy(input_data);
     // size_t zstdCmpSize = zstd.compress(reinterpret_cast<const uchar *>(input_data.data()), conf.num * sizeof(double),
     //                                    zstdCmpData, zstdCmpCap);
     // std::cout << "loss Compressed" << zstdCmpSize << std::endl;
-  SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
+//   SZ_decompress(conf, cmpData, cmpSize, dec_data_p);
     // std::vector<T> dec_data(datasize);
     // auto dec_data_p = dec_data.data();
-   // decompress_data(input_data.data(), size, cmpSize, cmpData, dec_data_p);
+   decompress_data(input_data.data(), size, cmpSize, cmpData, dec_data_p);
     // std::vector<double> dec_data(size);
     // auto dec_data_p = dec_data.data();
     // decompress_data(&buf[start * block_size], size, cmpSize, cmpData, dec_data_p);
